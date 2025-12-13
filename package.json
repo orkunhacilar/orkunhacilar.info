@@ -1,0 +1,20 @@
+{
+  "name": "orkunhacilar-info",
+  "version": "1.0.0",
+  "description": "Personal website for Orkun Hacılar",
+  "main": "index.html",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "serve": "npx serve ."
+  },
+  "keywords": [
+    "website",
+    "portfolio"
+  ],
+  "author": "Orkun Hacılar",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  }
+}
