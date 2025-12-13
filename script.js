@@ -1,9 +1,9 @@
 // Typing animation effect
 const typingText = document.querySelector('.typing-text');
 const roles = [
-    'Software Engineer',
-    'UI/UX Designer',
-    'Full Stack Developer',
+    'Full Stack Engineer',
+    'Azure Cloud Expert',
+    '.NET Developer',
     'Problem Solver'
 ];
 
