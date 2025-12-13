@@ -66,6 +66,12 @@ nav {
     font-weight: 700;
     color: var(--text-primary);
     letter-spacing: -0.5px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.logo:hover {
+    color: var(--accent-purple-light);
 }
 
 .logo-dot {
