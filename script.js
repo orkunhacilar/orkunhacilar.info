@@ -4,6 +4,7 @@ const roles = [
     'Full Stack Engineer',
     'Azure Cloud Expert',
     '.NET Developer',
+    'Frontend Developer',
     'Problem Solver'
 ];
 
