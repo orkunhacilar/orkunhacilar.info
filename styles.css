@@ -502,6 +502,29 @@ section {
     line-height: 1.6;
 }
 
+.timeline-details {
+    list-style: none;
+    padding: 0;
+    margin-top: 1rem;
+}
+
+.timeline-details li {
+    color: var(--text-muted);
+    line-height: 1.8;
+    margin-bottom: 0.8rem;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.timeline-details li::before {
+    content: '▹';
+    position: absolute;
+    left: 0;
+    color: var(--accent-purple);
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
 /* Projects Section */
 .projects {
     background: var(--bg-secondary);
