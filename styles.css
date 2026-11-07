@@ -845,3 +845,198 @@ footer {
         font-size: 2rem;
     }
 }
+
+/* Motion layer */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    z-index: 1001;
+    background: linear-gradient(90deg, var(--accent-purple) 0%, var(--accent-pink) 100%);
+    transform: scaleX(0);
+    transform-origin: left;
+    pointer-events: none;
+}
+
+.hero-network {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.hero-container {
+    position: relative;
+    z-index: 1;
+}
+
+.motion .hero-name,
+.motion .section-title {
+    background-image: linear-gradient(110deg, var(--text-primary) 0%, var(--accent-purple-light) 35%, var(--accent-pink) 50%, var(--accent-purple-light) 65%, var(--text-primary) 100%);
+    background-size: 300% 100%;
+    animation: titleShimmer 9s linear infinite;
+}
+
+@keyframes titleShimmer {
+    from { background-position: 100% 0; }
+    to { background-position: -50% 0; }
+}
+
+.profile-ring {
+    position: absolute;
+    width: 440px;
+    height: 440px;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, transparent 0deg, var(--accent-purple) 90deg, var(--accent-pink) 160deg, transparent 220deg);
+    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2px));
+    mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2px));
+    z-index: 1;
+    pointer-events: none;
+}
+
+.motion .profile-ring {
+    animation: ringSpin 7s linear infinite;
+}
+
+.motion .profile-image {
+    animation: none;
+}
+
+@keyframes ringSpin {
+    to { transform: rotate(360deg); }
+}
+
+.tech-marquee {
+    overflow: hidden;
+    padding: 1.25rem 0;
+    background: var(--bg-secondary);
+    border-block: 1px solid var(--border-color);
+    -webkit-mask: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+    mask: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+}
+
+.tech-track {
+    display: flex;
+    gap: 3rem;
+    width: max-content;
+    padding-right: 3rem;
+}
+
+.tech-track span {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.motion .tech-track {
+    animation: marquee 32s linear infinite;
+}
+
+.tech-marquee:hover .tech-track {
+    animation-play-state: paused;
+}
+
+@keyframes marquee {
+    to { transform: translateX(calc(-50% - 1.5rem)); }
+}
+
+.timeline-progress {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 30px;
+    width: 2px;
+    z-index: 1;
+    background: linear-gradient(180deg, var(--accent-purple) 0%, var(--accent-pink) 100%);
+    box-shadow: 0 0 12px rgba(236, 72, 153, 0.6);
+    transform: scaleY(0);
+    transform-origin: top;
+}
+
+.motion .timeline:has(.timeline-progress)::before {
+    opacity: 0.2;
+}
+
+.motion .timeline:has(.timeline-progress) .timeline-dot {
+    background: var(--bg-tertiary);
+    box-shadow: none;
+    z-index: 2;
+    transition: background 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
+}
+
+.motion .timeline:has(.timeline-progress) .timeline-dot.is-active {
+    background: var(--accent-pink);
+    box-shadow: 0 0 18px rgba(236, 72, 153, 0.8);
+    transform: scale(1.15);
+}
+
+.spotlight {
+    position: relative;
+}
+
+.spotlight::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(380px circle at var(--mx, 50%) var(--my, 50%), rgba(139, 92, 246, 0.16), transparent 65%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.spotlight:hover::after {
+    opacity: 1;
+}
+
+.motion .project-card {
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    will-change: transform;
+}
+
+.motion .btn {
+    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+}
+
+@media (max-width: 968px) {
+    .profile-image {
+        width: 240px;
+        height: 240px;
+    }
+
+    .profile-ring {
+        width: 284px;
+        height: 284px;
+    }
+}
+
+@media (max-width: 768px) {
+    .timeline-progress {
+        left: 15px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    .hero::before,
+    .hero-content,
+    .hero-image,
+    .profile-image,
+    .gradient-circle {
+        animation: none;
+    }
+
+    .tech-track {
+        flex-wrap: wrap;
+        justify-content: center;
+        width: auto;
+        row-gap: 0.5rem;
+    }
+}

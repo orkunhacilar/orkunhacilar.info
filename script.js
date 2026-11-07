@@ -40,6 +40,10 @@ function typeEffect() {
 
 // Start typing animation
 document.addEventListener('DOMContentLoaded', () => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        typingText.textContent = roles[0];
+        return;
+    }
     setTimeout(typeEffect, 1000);
 });
 
@@ -118,37 +122,27 @@ if (ctaButton) {
     });
 }
 
-// Intersection Observer for fade-in animations
-const observerOptions = {
-    threshold: 0,
-    rootMargin: '0px 0px -100px 0px'
-};
+// Fallback fade-ins, used only when the GSAP motion layer is unavailable
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const gsapAvailable = typeof gsap !== 'undefined';
 
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-        }
-    });
-}, observerOptions);
+if (!prefersReducedMotion && !gsapAvailable) {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, { threshold: 0, rootMargin: '0px 0px -100px 0px' });
 
-// Observe elements for animation
-document.addEventListener('DOMContentLoaded', () => {
-    const animatedElements = document.querySelectorAll('.project-card, .timeline-item, .skill-category');
-    
-    animatedElements.forEach(el => {
+    document.querySelectorAll('.project-card, .timeline-item, .skill-category').forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(30px)';
         el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         observer.observe(el);
     });
-});
-
-// Observe all sections
-document.querySelectorAll('section').forEach(section => {
-    observer.observe(section);
-});
+}
 
 // Mobile menu toggle
 const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
@@ -168,21 +162,3 @@ if (mobileMenuToggle) {
         });
     });
 }
-
-// Add fade-in animation class
-const style = document.createElement('style');
-style.textContent = `
-    section {
-        opacity: 0;
-        transform: translateY(20px);
-        transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    
-    section.fade-in {
-        opacity: 1;
-        transform: translateY(0);
-    }
-`;
-document.head.appendChild(style);
-
-console.log('Portfolio loaded successfully!');
